@@ -80,15 +80,9 @@ router.get("/items/:id", useAuth, async (req, res) => {
         user_budget_id: req.session.user_id,
       },
     });
-
     const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-    console.log(budgets);
-
     req.session.budget_id = req.params.id;
     req.session.save();
-
-    console.log(req.session.budget_id)
-    
     res.render("items", {
       logged_in: req.session.logged_in,
       budgets

@@ -255,10 +255,17 @@ router.put("/:id", useAuth, async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
+
+router.delete("/:id", async (req, res) => {
   try {
-    const deleteBudget = await Budget.destroy({});
+    const deleteBudget = await Budget.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(deleteBudget);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

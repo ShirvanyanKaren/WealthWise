@@ -39,6 +39,7 @@
             <li class="nav-item"><a href="/create"><span
                  aria-hidden="true"
                 >Create Budget</span></a></li>
+            {{#if budgets.length}}
               <li class="nav-item dropdown">
             <a href="#" class="dropbtn">View Budgets</a>
             <div class="dropdown-content">
@@ -47,6 +48,7 @@
               {{/each}}
               </div>
               </li>
+               {{/if}}
             <li class="nav-item"><a href="/logout"><span
                   aria-hidden="true"
                 >Logout</span></a></li>
