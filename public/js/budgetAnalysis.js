@@ -2,6 +2,7 @@ const incomeChart = document.querySelector("#income-chart");
 const expenseChart = document.querySelector("#expense-chart");
 const incomeBar = document.querySelector("#income-bar-chart");
 const expenseBar = document.querySelector("#expense-bar-chart");
+const overviewTable = document.querySelector("#overview-table");
 
 const colors = [
   "#FF6384",
@@ -174,7 +175,7 @@ const renderOverviewTable = async (data) => {
 
   console.log(dataObj);
 
-  table = new Tabulator("#overview-table", {
+  table = new Tabulator(overviewTable, {
     data: dataObj,
     layout: "fitColumns",
     columns: [
@@ -247,10 +248,6 @@ const renderExpenseBar = async (data) => {
   });
 }
 
-
-
-
-
 const init = async () => {
   const session = await getSession();
   const budgetData = await requestHandler(session.user_id, session.budget_id);
@@ -263,7 +260,6 @@ const init = async () => {
   await renderOverviewTable(budgetData);
   await renderIncomeBar(incomeCategoryData); 
   await renderExpenseBar(expenseCategoryData);
-  await renderTable();
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
