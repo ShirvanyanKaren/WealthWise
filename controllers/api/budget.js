@@ -187,9 +187,17 @@ router.put("/:id", useAuth, async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const deleteBudget = await Budget.destroy({});
+    const deleteBudget = await Budget.destroy({
+      where: { id: req.params.id },
+    });
+    console.log(deleteBudget);
+    if (!deleteBudget) {
+      res.status(404).json({ message: "No budget found with this id!" });
+      return;
+    }
+    res.status(200).json(deleteBudget);
   } catch (err) {
     res.status(500).json(err);
   }
