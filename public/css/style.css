@@ -249,6 +249,7 @@ button:active {
 .pie-chart-section{
   display: flex;
   justify-content: space-evenly;
+  max-width: 1000px;
   align-items: center;
   width: 100%;
   margin: 0rem;
@@ -260,6 +261,7 @@ button:active {
   align-items: center;
   width: 100%;
 }
+
 
 .unauthorized-container {
   max-width: 80vw;
@@ -338,6 +340,76 @@ footer {
 footer p {
   color: var(--off-white);
 }
+
+.total-savings{
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+}
+
+
+.profit:hover{
+  color:gray ;
+}
+.loss:hover{
+  color:gray ;
+}
+
+.profit {
+  background-color: #ddffdd;
+  border-left: 6px solid #04AA6D;
+  text-align: center; 
+  padding: 1rem; 
+  color: #101010;
+  margin-bottom: 1rem;
+  font: bolder;
+  font-size: 30px; 
+}
+.loss {
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  text-align: center; 
+  padding: 1rem; 
+  margin-bottom: 1rem;
+  font: bolder;
+  color:#101010;
+  font-size: 30px; 
+}
+
+.total-savings:hover{
+  transform: scale(1.1);
+  cursor: pointer; 
+  color: gray;
+}
+
+.loss a,
+.profit a{
+  font-weight: bold; 
+  margin: 0; 
+  color: gray;
+}
+
+
+
+.delete-btn {
+  margin-top: 20px;
+  color: white;
+  background-color: red;
+  border-radius: 4px;
+  height: 40px; 
+  width: 180px; 
+  cursor: pointer; 
+  border: none; 
+  transition: background-color 0.3s; 
+}
+
+
+.delete-btn:hover {
+  background-color: rgb(221, 123, 123);
+  transform: scale(1.1);
+  color: white;
+}
+
+
 
 @media only screen and (max-width: 1250px) {
   .welcome-page {
@@ -439,6 +511,14 @@ footer p {
     align-items: center;
     margin-top: 1rem;
   }
+
+  .budget-total-savings {
+    display: block;
+    text-align: center;
+    margin-top: 1rem; 
+  }
+
+ 
 
   .income,
   .expense {

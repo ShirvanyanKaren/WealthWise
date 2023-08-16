@@ -4,6 +4,13 @@ const incomeBar = document.querySelector("#income-bar-chart");
 const expenseBar = document.querySelector("#expense-bar-chart");
 const overviewTable = document.querySelector("#overview-table");
 const deleteAll = document.querySelector("#delete-budget");
+const savings = document.querySelector("#savings").value;
+const totalSavingsElement = document.querySelector('#savings');
+const totalSavingsText = totalSavingsElement.textContent;
+const totalSavings = parseFloat(totalSavingsText.match(/-?\d+(\.\d+)?/)[0]);
+
+
+
 
 const colors = [
   "#FF6384",
@@ -25,6 +32,7 @@ const colors = [
 ];
 
 let table;
+
 
 const getIncomeItems = async (user_id, budget_id) => {
   try {
@@ -56,7 +64,22 @@ const getCurrentBudget = async (user_id, budget_id) => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
+    console.log(response);
     return response;
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getOneBudget = async (budget_id) => {
+  try {
+    const response = await fetch(`/api/budget/${budget_id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log(response);
+    return response;
+    
   } catch (error) {
     console.log(error);
   }
@@ -244,17 +267,38 @@ deleteAll.addEventListener("click", async (event) => {
     }
   }
 });
+console.log(totalSavings);
+const renderSavingsText = async () => {
+  const savingsElement = document.getElementById("savings");
+  
+  if (totalSavings >= 0) {
+    savingsElement.classList.add("profit");
+    savingsElement.classList.remove("loss"); 
+    savingsElement.textContent = `Your total savings are $${totalSavings}`;
+  } else if (totalSavings < 0) {
+    savingsElement.classList.add("loss");
+    savingsElement.classList.remove("profit"); 
+    savingsElement.textContent = `Your total loss is -$${Math.abs(totalSavings)}`;
+  }
+}
+
+
+
 
 const init = async () => {
   const session = await getSession();
   const budgetData = await requestHandler(session.user_id, session.budget_id);
   console.log(budgetData);
+  const currentBudget = await getOneBudget(session.budget_id);
+  console.log("response", currentBudget);
   const incomeCategoryData = await calculateCategoryTotals(budgetData.dataOne);
   const expenseCategoryData = await calculateCategoryTotals(budgetData.dataTwo);
   const budget = budgetData.dataThree;
   await renderIncomeChart(incomeCategoryData);
   await renderExpenseChart(expenseCategoryData);
   await renderOverviewTable(budgetData);
+  console.log(totalSavings);
+  await renderSavingsText(totalSavings);
   return budgetData;
 };
 

@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", useAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const singleBudget = await Budget.findOne({
       attributes: [
@@ -49,7 +49,7 @@ router.get("/:id", useAuth, async (req, res) => {
         "total_savings",
       ],
       where: {
-        user_budget_id: req.params.id,
+        id: req.params.id,
       },
       include: [
         {
