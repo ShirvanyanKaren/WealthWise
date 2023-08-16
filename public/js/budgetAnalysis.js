@@ -132,9 +132,18 @@ const renderIncomeChart = async (data) => {
       },
     ],
   };
+
+  const chartOptions = {
+    title: {
+      display: true,
+      text: "Income by Category",
+    },
+  };
+
   const incomeChartVar = new Chart(incomeChart, {
     type: "pie",
     data: chartData,
+    options: chartOptions,
   });
 };
 
@@ -151,9 +160,19 @@ const renderExpenseChart = async (data) => {
       },
     ],
   };
+
+  const chartOptions = {
+    title: {
+      display: true,
+      text: "Income by Category",
+      fontSize: 20,
+    },
+  };
+
   const expenseChartVar = new Chart(expenseChart, {
     type: "pie",
     data: chartData,
+    options: chartOptions,
   });
 };
 

@@ -1,10 +1,17 @@
-<section>
-  <canvas id="income-chart" class="form-container"></canvas>
-  <canvas id="expense-chart" class="form-container"></canvas>
+<section class="budget-analysis">
+  <section class="pie-chart-section">
+    <div class="form-container">
+      <h2 class="chart-title">Income by Category</h2>
+      <canvas id="income-chart"></canvas>
+    </div>
+    <div class="form-container bottom">
+      <h2 class="chart-title">Expense by Category</h2>
+      <canvas id="expense-chart"></canvas>
+    </div>
+  </section>
+  <section class="pie-chart-section">
+    <div id="overview-table"></div>
+  </section>
+    <button id="delete-budget">Delete Budget Plan</button>
 </section>
-<section>
-   <div id="overview-table" ></div>
-   <button id="delete-budget">Delete Budget Plan</button>
-</section>
-
 <script src="/js/budgetAnalysis.js"></script>
