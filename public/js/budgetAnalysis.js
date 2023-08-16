@@ -3,6 +3,7 @@ const expenseChart = document.querySelector("#expense-chart");
 const incomeBar = document.querySelector("#income-bar-chart");
 const expenseBar = document.querySelector("#expense-bar-chart");
 const overviewTable = document.querySelector("#overview-table");
+const deleteAll = document.querySelector("#delete-budget");
 
 const colors = [
   "#FF6384",
@@ -24,7 +25,6 @@ const colors = [
 ];
 
 let table;
-
 
 const getIncomeItems = async (user_id, budget_id) => {
   try {
@@ -103,8 +103,8 @@ const calculateCategoryTotals = async (data) => {
 
   for (const item of data) {
     const { category, amount } = item;
-    totalAmount += amount;
-    categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+    totalAmount += parseFloat(amount); // Convert amount to a number before adding
+    categoryTotals[category] = (categoryTotals[category] || 0) + parseFloat(amount);
   }
 
   const categoryPercentages = {};
@@ -119,8 +119,10 @@ const calculateCategoryTotals = async (data) => {
   };
 };
 
+
 const renderIncomeChart = async (data) => {
   const labels = Object.keys(data.totals);
+  console.log(data)
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
@@ -132,14 +134,24 @@ const renderIncomeChart = async (data) => {
       },
     ],
   };
+
+  const chartOptions = {
+    title: {
+      display: true,
+      text: "Income by Category",
+    },
+  };
+
   const incomeChartVar = new Chart(incomeChart, {
     type: "pie",
     data: chartData,
+    options: chartOptions,
   });
 };
 
 const renderExpenseChart = async (data) => {
   const labels = Object.keys(data.totals);
+  console.log(data.totals)
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
@@ -151,9 +163,19 @@ const renderExpenseChart = async (data) => {
       },
     ],
   };
-  const expenseChartVar = new Chart( expenseChart, {
+
+  const chartOptions = {
+    title: {
+      display: true,
+      text: "Income by Category",
+      fontSize: 20,
+    },
+  };
+
+  const expenseChartVar = new Chart(expenseChart, {
     type: "pie",
     data: chartData,
+    options: chartOptions,
   });
 };
 
@@ -163,14 +185,14 @@ const renderOverviewTable = async (data) => {
       ...rest,
       name: income_name,
       user_id: user_income_id,
-      type: 'Income'
+      type: "Income",
     })),
     ...data.dataTwo.map(({ expense_name, user_expense_id, ...rest }) => ({
       ...rest,
       name: expense_name,
       user_id: user_expense_id,
-      type: 'Expense'
-    }))
+      type: "Expense",
+    })),
   ];
 
   console.log(dataObj);
@@ -190,7 +212,7 @@ const renderOverviewTable = async (data) => {
     ],
   });
 };
-    
+
 const deleteExpenseFromDb = async (id) => {
   const response = await fetch(`/api/expense/${id}`, {
     method: "DELETE",
@@ -206,47 +228,22 @@ const deleteExpenseFromDb = async (id) => {
   }
 };
 
-const renderIncomeBar = async (data) => {
-  const labels = Object.keys(data.totals);
-  const values = Object.values(data.totals);
-  
-  const chartData = {
-    labels: labels,
-    datasets: [{
-      label: 'Income by Category',
-      data: values,
-      backgroundColor: colors,
-      borderColor: colors,
-      borderWidth: 1,
+deleteAll.addEventListener("click", async (event) => {
+  event.preventDefault();
+  const confirmed = confirm("Are you sure you want to delete this budget? This action cannot be undone.");
+  if (confirmed) {
+  const session = await getSession();
+  console.log(session.budget_id);
+    const response = await fetch(`/api/budget/${session.budget_id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      window.location.replace("/");
+    } else {
+      console.log(response);
     }
-  ],
-  };
-  const expenseChartVar = new Chart( incomeBar, {
-    type: "bar",
-    data: chartData,
-  });
-}
-
-const renderExpenseBar = async (data) => {
-  const labels = Object.keys(data.totals);
-  const values = Object.values(data.totals);
-  
-  const chartData = {
-    labels: labels,
-    datasets: [{
-      label: 'Income by Category',
-      data: values,
-      backgroundColor: colors,
-      borderColor: colors,
-      borderWidth: 1,
-    }
-  ],
-  };
-  const expenseChartVar = new Chart( expenseBar, {
-    type: "bar",
-    data: chartData,
-  });
-}
+  }
+});
 
 const init = async () => {
   const session = await getSession();
@@ -258,8 +255,7 @@ const init = async () => {
   await renderIncomeChart(incomeCategoryData);
   await renderExpenseChart(expenseCategoryData);
   await renderOverviewTable(budgetData);
-  await renderIncomeBar(incomeCategoryData); 
-  await renderExpenseBar(expenseCategoryData);
+  return budgetData;
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
