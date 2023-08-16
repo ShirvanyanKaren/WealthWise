@@ -109,7 +109,6 @@ button:active {
 }
 
 .dropdown:hover .dropbtn {
-  /* background-color: var(--light-purple); */
   transform: scale(1.2);
 }
 
@@ -138,6 +137,7 @@ button:active {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .hamburger {
   display: none;
 }
@@ -232,8 +232,44 @@ button:active {
   text-align: center;
 }
 
+.chart-title {
+  padding-bottom: 1rem;
+}
+
+.budget-analysis {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 1rem;
+}
+
+.pie-chart-section{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 0rem;
+}
+
+.expense-btn-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .unauthorized-container {
   max-width: 80vw;
+}
+
+.save-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
 }
 
 .form-input {
@@ -258,6 +294,11 @@ button:active {
   padding-top: 1rem;
 }
 
+.submit-budget{
+  background-color: var(--light-blue);
+  color: var(--off-white);
+}
+
 .field {
   width: 100%;
   padding: 0.5rem 1rem;
@@ -270,8 +311,18 @@ button:active {
 
 .create-budget-section {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 100vw;
+}
+
+#overview-table,
+#income-table,
+#expense-table {
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  font-family: var(--source-sans);
+  margin: 1rem 0;
 }
 
 /* Footer Styles */
@@ -309,6 +360,28 @@ footer p {
     z-index: 999;
   }
 
+  .pie-chart-section{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-top: 5rem;
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  .form-container {
+    width: auto;
+  }
+
+  .bottom {
+    margin-top: 3rem;
+  }
+
+  #overview-table{
+    width: 100%;
+  }
+
   .nav-menu {
     position: absolute;
     left: -100%;
@@ -326,6 +399,10 @@ footer p {
     left: 0;
     transition: all 0.5s ease;
     z-index: 1;
+  }
+
+  .dropbtn{
+    color: var(--black);
   }
 
   .nav-item {
