@@ -2,47 +2,6 @@ const router = require("express").Router();
 const { User, Income } = require('../../models');
 const { useAuth } = require('../../utils/auth');
 
-// router.get('/', useAuth, async (req, res) => {
-//     try {
-
-//         const userId = req.session.user_id;
-
-//         const incomeData = await Income.findAll({
-//             attributes: [
-//                 'id',
-//                 'income_name',
-//                 'user_income_id',
-//                 'amount',
-//                 'description',
-//                 'category',
-//                 'date'
-//             ],
-//             where: {
-//                 user_income_id: userId,
-//                 budget_id: req.session.budget_id,
-//             },
-//             include: [
-//                 {
-//                     model: User,
-//                     attributes: [
-//                         'id',
-//                         'username'
-//                     ]
-//                 }
-//             ],
-//         });
-
-//         if (!incomeData) {
-//             res.status(404).json({ message: 'No income found with this user id'});
-//             return;
-//         }
-//         res.json(incomeData);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-
-// });
-
 router.get('/', useAuth, async (req, res) => {
     try {
 
@@ -79,7 +38,6 @@ router.get('/', useAuth, async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-
 });
 
 router.get('/:user/:budget', useAuth, async (req, res) => {
@@ -100,8 +58,6 @@ router.get('/:user/:budget', useAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-
 
 router.get('/:id', useAuth, async (req, res) => {
     try {
@@ -153,7 +109,6 @@ router.post('/', useAuth, async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     }
-
 })
 
 router.put('/:id', useAuth, async (req, res) => {
