@@ -1,0 +1,6 @@
+.DS_stores
+.vscode
+node_modules
+TEST.md
+package-lock.json
+.env
