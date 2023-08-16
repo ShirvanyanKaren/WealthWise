@@ -1,3 +1,4 @@
+// const sequelize = require("../config/connection");
 const createUsers = require("./createUsers");
 const createUsersBudgets = require("./createUsersBudgets");
 const createUsersIncomes = require("./createUsersIncomes");
@@ -5,6 +6,7 @@ const createUsersExpenses = require("./createUsersExpenses");
 const updateUsersBudgets = require("./updateUsersBudgets");
 const sequelize = require("../config/connection");
 
+// Calls the functions to seed the database
 const seedAll = async () => {
   try {
     await sequelize.sync({ force: true })

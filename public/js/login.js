@@ -1,3 +1,7 @@
+// Query selectors
+const loginForm = document.querySelector(".login-form");
+
+// Login form handler
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
@@ -32,7 +36,6 @@ const loginFormHandler = async (event) => {
             errorMessage = "Unknown error.";
             break;
         }
-
         errorElement.textContent = errorMessage;
       }
     }
@@ -41,7 +44,6 @@ const loginFormHandler = async (event) => {
   }
 };
 
-document
-  .querySelector(".login-form")
-  .addEventListener("submit", loginFormHandler);
+// Event listener for login form
+loginForm.addEventListener("submit", loginFormHandler);
 

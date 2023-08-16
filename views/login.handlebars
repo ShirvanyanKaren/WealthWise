@@ -1,20 +1,30 @@
 <section class="form-container">
-  <h2 class="p-2 m-4">Login</h2>
+  <h2>Login</h2>
   <form class="form login-form">
-      <label for="user-login">Email/Username</label>
-    <div class="form-group p-2 m-4">
-      <input class="form-input width-2" type="text" id="user-login" autocomplete="username" />
+    <label for="user-login">Email/Username</label>
+    <div class="form-group">
+      <input
+        class="form-input"
+        type="text"
+        id="user-login"
+        autocomplete="username"
+      />
     </div>
-      <label for="password-login">Password</label>
-    <div class="form-group p-2 m-4">
-      <input class="form-input width-2" type="password" id="password-login" autocomplete="current-password"/>
+    <label for="password-login">Password</label>
+    <div class="form-group">
+      <input
+        class="form-input"
+        type="password"
+        id="password-login"
+        autocomplete="current-password"
+      />
     </div>
-      <div id="error-message" style="color: red;"></div>
+    <div id="error-message" style="color: red;"></div>
     <div class="form-btn-container">
       <button type="submit">Login</button>
     </div>
   </form>
-    <a href="/signup" style="color: blue">Don&rsquo;t have an account? SignUp</a>
+  <a href="/signup" style="color: blue">Don&rsquo;t have an account? SignUp</a>
 </section>
 
 <script src="/js/login.js"></script>

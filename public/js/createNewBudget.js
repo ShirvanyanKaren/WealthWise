@@ -1,8 +1,9 @@
-
+// Query Selectors
 const newBudgetForm = document.querySelector("#new-budget-form");
 const errorElement = document.querySelector("#error-message");
 const dropdown = document.querySelector("#budgetDropdown");
 
+// Event Handlers for New Budget Form
 const newBudgetHandler = async (event) => {
   event.preventDefault();
   try {
@@ -39,6 +40,7 @@ const newBudgetHandler = async (event) => {
   }
 };
 
+// Event Listeners for New Budget Form Drop down
 dropdown.addEventListener("change", (event) => {
   console.log(event.target.value);
   const budgetId = event.target.value;
@@ -47,4 +49,5 @@ dropdown.addEventListener("change", (event) => {
   }
 });
 
+// Event Listeners for New Budget Form
 newBudgetForm.addEventListener("submit", newBudgetHandler);

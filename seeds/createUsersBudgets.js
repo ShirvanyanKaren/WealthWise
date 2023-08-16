@@ -1,6 +1,8 @@
+// Import the faker module
 const { faker } = require("@faker-js/faker");
 const { User, Budget } = require("../models");
 
+// Creates 2 budgets for each user
 const createUsersBudgets = async () => {
   const users = await User.findAll();
   for (const user of users) {
