@@ -61,13 +61,14 @@ router.get("/items", useAuth, async (req, res) => {
       },
     });
 
-    const budgets = userBudgets.map((budget) => budget.get({ plain: true }));
+    const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
     console.log(budgets);
     res.render("items", {
       logged_in: req.session.logged_in,
       budgets
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
