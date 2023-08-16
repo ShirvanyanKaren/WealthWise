@@ -1,0 +1,23 @@
+<section class="form-container">
+  <h2>Choose a Budget Name</h2>
+  <div>
+    {{> budgetList}}
+  </div>
+  <div id="error-message" style="color: red;"></div>
+  <br />
+  <form class="form" id="new-budget-form">
+    <label for="budget-name">Name</label>
+    <div class="form-group">
+      <input class="form-input" type="text" id="budget-name" maxlength="255" />
+    </div>
+    <div class="form-btn-container">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <p>Dont feel like creating a budget right now?</p>
+  <p>
+    Return to the home page
+    <a href="/dashboard" style="color: blue">here.</a></p>
+</section>
+
+<script src="/js/createNewBudget.js"></script>

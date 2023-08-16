@@ -1,0 +1,35 @@
+{
+  "name": "wealthwise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "seed": "node seeds/seed.js",
+    "postinstall": "npm run seed",
+    "watch": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "animate.css": "^4.1.1",
+    "bcrypt": "^5.1.0",
+    "bootstrap": "^5.3.1",
+    "chart.js": "^4.3.3",
+    "connect-session-sequelize": "^7.1.7",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.8",
+    "mysql2": "^3.6.0",
+    "sequelize": "^6.32.1",
+    "tabulator-tables": "^5.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
