@@ -13,6 +13,7 @@ const submitBudget = async (event) => {
     if (response.ok) {
       document.location.replace("/budget");
     }
+    console.log(response);
   }
 };
 
