@@ -103,8 +103,8 @@ const calculateCategoryTotals = async (data) => {
 
   for (const item of data) {
     const { category, amount } = item;
-    totalAmount += amount;
-    categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+    totalAmount += parseFloat(amount); // Convert amount to a number before adding
+    categoryTotals[category] = (categoryTotals[category] || 0) + parseFloat(amount);
   }
 
   const categoryPercentages = {};
@@ -119,8 +119,10 @@ const calculateCategoryTotals = async (data) => {
   };
 };
 
+
 const renderIncomeChart = async (data) => {
   const labels = Object.keys(data.totals);
+  console.log(data)
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
@@ -149,6 +151,7 @@ const renderIncomeChart = async (data) => {
 
 const renderExpenseChart = async (data) => {
   const labels = Object.keys(data.totals);
+  console.log(data.totals)
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
