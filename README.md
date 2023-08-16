@@ -32,7 +32,7 @@ Landing Page:
 
 For Development:
 
-1. Clone or fork the repository using ""
+1. Clone or fork the repository from "https://github.com/ShirvanyanKaren/WealthWise"
 2. Navigate to the root directory of the project using CLI.
 3. Install node modules using "npm install"
 4. Create a .env file to store your MySQL credentials
@@ -179,7 +179,7 @@ Expense.init(
 
 Building MySQL Databases, Tables, Cookies and authentication handling. Alternatives to storing plain text passwords using databases. Front end / Back end integration using Restful routes. Creating and manipulating data using MySQL and Sequelize. Use of ORMs. And front-end / back-end integration.
 
-## Author
+## Author/Credits
 
 Michael Mattingly
 
@@ -193,8 +193,6 @@ Karen Shirvanyan
 
 * [LinkedIn](https://www.linkedin.com/in/karen-shirvanyan-8a46a01a3/)
 
-
-
 This project uses the following packages:
 
 * Node.js - [https://nodejs.org/en](https://nodejs.org/en)
@@ -204,10 +202,16 @@ This project uses the following packages:
 * Connect-session-sequelize - [https://www.npmjs.com/package/connect-session-sequelize](https://www.npmjs.com/package/connect-session-sequelize)
 * Dotenv - [https://www.npmjs.com/package/dotenv](https://www.npmjs.com/package/dotenv)
 * Express - [https://www.npmjs.com/package/express](https://www.npmjs.com/package/express)
+* Faker.js - [https://www.npmjs.com/package/@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker)
+* Chart.js - [https://www.chartjs.org/](https://www.chartjs.org/)
 * Express-handlebars - [https://www.npmjs.com/package/express-handlebars](https://www.npmjs.com/package/express-handlebars)
 * Handlebars - [https://www.npmjs.com/package/handlebars](https://www.npmjs.com/package/handlebars)
 * Express-session - [https://www.npmjs.com/package/express-session](https://www.npmjs.com/package/express-session)
 * Sequelize - [https://www.npmjs.com/package/sequelize](https://www.npmjs.com/package/sequelize)
+
+  Background photo was obtained through Unsplash, by artist: Daniel Seßler: [UnSplash Account](https://unsplash.com/@danielsessler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
+
+  Logo was obtained via [Canva](http://www.canva.com).
 
 ## License
 
