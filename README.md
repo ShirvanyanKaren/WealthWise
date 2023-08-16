@@ -32,7 +32,7 @@ Landing Page:
 
 For Development:
 
-1. Clone or fork the repository using ""
+1. Clone or fork the repository from "https://github.com/ShirvanyanKaren/WealthWise"
 2. Navigate to the root directory of the project using CLI.
 3. Install node modules using "npm install"
 4. Create a .env file to store your MySQL credentials
@@ -209,9 +209,9 @@ This project uses the following packages:
 * Express-session - [https://www.npmjs.com/package/express-session](https://www.npmjs.com/package/express-session)
 * Sequelize - [https://www.npmjs.com/package/sequelize](https://www.npmjs.com/package/sequelize)
 
-  Background photo was obtained through Unsplash, by artist: Daniel Seßler: [UnSplash Account](https://unsplash.com/@danielsessler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+  Background photo was obtained through Unsplash, by artist: Daniel Seßler: [UnSplash Account](https://unsplash.com/@danielsessler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
 
-  Logo was obtained via [Canva](http://www.canva.com)
+  Logo was obtained via [Canva](http://www.canva.com).
 
 ## License
 
