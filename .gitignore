@@ -1,4 +1,6 @@
-.DS_store
+.DS_stores
 .vscode
-.env
 node_modules
+TEST.md
+package-lock.json
+.env
