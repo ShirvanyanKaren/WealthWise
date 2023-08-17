@@ -225,8 +225,6 @@ const renderOverviewTable = async (data) => {
     })),
   ];
 
-  console.log(dataObj);
-
   table = new Tabulator(overviewTable, {
     data: dataObj,
     layout: "fitColumns",
@@ -270,13 +268,13 @@ const renderSavingsText = async () => {
   if (totalSavings >= 0) {
     savingsElement.classList.add("profit");
     savingsElement.classList.remove("loss");
-    savingsElement.textContent = `Your total savings are $${totalSavings}`;
+    savingsElement.textContent = `Your monthly total savings are $${totalSavings}. Click here to return to your expenses and edit them.`;
   } else if (totalSavings < 0) {
     savingsElement.classList.add("loss");
     savingsElement.classList.remove("profit");
-    savingsElement.textContent = `Your total loss is -$${Math.abs(
+    savingsElement.textContent = `Your monthly total loss is -$${Math.abs(
       totalSavings
-    )}`;
+    )}. Click here to return to your expenses and edit them.`;
   }
 };
 

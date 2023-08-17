@@ -1,11 +1,11 @@
 <section class="budget-analysis">
   <section class="pie-chart-section">
     <div class="form-container">
-      <h2 class="chart-title">Income by Category</h2>
+      <h3 class="chart-title">Monthly Income by Category</h3>
       <canvas id="income-chart"></canvas>
     </div>
     <div class="form-container bottom">
-      <h2 class="chart-title">Expense by Category</h2>
+      <h3 class="chart-title">Monthly Expenses by Category</h3>
       <canvas id="expense-chart"></canvas>
     </div>
   </section>
@@ -13,9 +13,11 @@
     <div id="overview-table"></div>
   </section>
   <div class="total-savings">
+  <section class="pie-chart-section">
     <a id="savings" href="/items/{{budget.id}}">{{budget.total_savings}}</a>
   </div>
     <button class="delete-btn" id="delete-budget">Delete Budget Plan</button>
+    
 </section>
 <section class="budget-total-savings">
   

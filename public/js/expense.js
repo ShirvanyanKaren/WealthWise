@@ -108,7 +108,7 @@ const createExpenseTable = async () => {
           e.preventDefault();
           let id = cell.getRow().getData().id;
           cell.getRow().delete();
-          deleteIncomeFromDb(id);
+          deleteExpenseFromDb(id);
         },
       },
     ],
