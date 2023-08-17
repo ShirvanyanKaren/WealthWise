@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+// GET current session data
 router.get("/current", async (req, res) => {
     const sessionData = await {
         user_id: req.session.user_id,
@@ -8,6 +9,5 @@ router.get("/current", async (req, res) => {
     console.log(sessionData);
     res.json(sessionData);
 });
-
 
 module.exports = router;

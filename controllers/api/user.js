@@ -3,10 +3,11 @@ const router = require("express").Router();
 const { User } = require("../../models");
 const { Op } = require("sequelize");
 
+// Create a new user
 router.post("/signup", async (req, res) => {
   try {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    
+
     if (!emailRegex.test(req.body.email)) {
       res.status(400).json({ message: "Email address is not valid" });
       return;
@@ -22,9 +23,11 @@ router.post("/signup", async (req, res) => {
       res.status(401).json({ message: "Email or username already in use" });
       return;
     }
-    
+
     if (req.body.password.length < 8) {
-      res.status(401).json({ message: "Password must be at least 8 characters long" });
+      res
+        .status(401)
+        .json({ message: "Password must be at least 8 characters long" });
       return;
     }
 
@@ -38,19 +41,19 @@ router.post("/signup", async (req, res) => {
       res.status(400).json({ message: "Something went wrong!" });
       return;
     }
-  
+
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      res.json({ user: userData, message: "You are now logged in!"});
+      res.json({ user: userData, message: "You are now logged in!" });
     });
-
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
   }
 });
 
+// Login route
 router.post("/login", async (req, res) => {
   try {
     console.log(req.body);

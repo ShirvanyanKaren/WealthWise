@@ -1,14 +1,16 @@
+// Query Selectors
+const signUpForm = document.querySelector(".signup-form");
+
+// Sign Up Function
 const signup = async (event) => {
   event.preventDefault();
-
   const errorElement = document.querySelector("#error-message");
-
   const body = JSON.stringify({
     username: document.querySelector("#signup-name").value,
     email: document.querySelector("#signup-email").value,
     password: document.querySelector("#signup-password").value,
   });
-  
+
   try {
     const response = await fetch("/api/user/signup", {
       method: "POST",
@@ -33,4 +35,5 @@ const signup = async (event) => {
   }
 };
 
-document.querySelector(".signup-form").addEventListener("submit", signup);
+// Event Listeners
+signUpForm.addEventListener("submit", signup);

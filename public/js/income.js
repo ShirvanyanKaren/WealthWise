@@ -1,8 +1,10 @@
 const incomeTableEL = document.querySelector("#income-table");
 const incomeResult = document.querySelector(".income-result");
+const incomeForm = document.querySelector(".income");
 
 let incomeTable;
 
+// This function will get the data for the table from the database
 const incomeFormHandler = async (event) => {
   event.preventDefault();
   const income_name = document.querySelector("#income-name").value;
@@ -12,6 +14,12 @@ const incomeFormHandler = async (event) => {
 
   if (isNaN(amount)) {
     incomeResult.textContent = "Please enter a valid amount.";
+    incomeResult.style.color = "red";
+    return;
+  }
+
+  if (amount === "") {
+    incomeResult.textContent = "Income amount must not be empty.";
     incomeResult.style.color = "red";
     return;
   }
@@ -54,6 +62,7 @@ const incomeFormHandler = async (event) => {
   }
 };
 
+// This function will get the data for the table from the database
 const createIncomeTable = async () => {
   const data = await getTableData("/api/revenue");
   incomeTable = new Tabulator(incomeTableEL, {
@@ -97,7 +106,8 @@ const createIncomeTable = async () => {
     ],
   });
 };
-resizable: false;
+
+// This function will get the data for the table from the database
 const deleteIncomeFromDb = async (id) => {
   const response = await fetch(`/api/revenue/${id}`, {
     method: "DELETE",
@@ -113,8 +123,8 @@ const deleteIncomeFromDb = async (id) => {
   }
 };
 
-document.querySelector(".income").addEventListener("submit", incomeFormHandler);
-
+// Event listener for the income form
+incomeForm.addEventListener("submit", incomeFormHandler);
 document.addEventListener("DOMContentLoaded", async () => {
   await createIncomeTable();
 });

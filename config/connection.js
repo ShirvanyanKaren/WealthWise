@@ -1,7 +1,8 @@
+// import the Sequelize constructor from the library  
 require("dotenv").config();
-
 const Sequelize = require("sequelize");
 
+// Connects to database either on Heroku or locally
 const sequelize = process.env.JAWSDB_URL
   ? new Sequelize(process.env.JAWSDB_URL)
   : new Sequelize(
@@ -15,8 +16,9 @@ const sequelize = process.env.JAWSDB_URL
           decimalNumbers: true,
         },
       }
-  );
+    );
 
+// Checks the connection to the database
 const checkAuthenticity = async () => {
   try {
     await sequelize.authenticate();
@@ -26,5 +28,8 @@ const checkAuthenticity = async () => {
   }
 };
 
-checkAuthenticity();  
+// runs the checkAuthenticity function
+checkAuthenticity();
+
+// exports the sequelize connection
 module.exports = sequelize;

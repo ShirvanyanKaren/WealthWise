@@ -1,3 +1,4 @@
+// Query Selectors
 const incomeChart = document.querySelector("#income-chart");
 const expenseChart = document.querySelector("#expense-chart");
 const incomeBar = document.querySelector("#income-bar-chart");
@@ -5,12 +6,10 @@ const expenseBar = document.querySelector("#expense-bar-chart");
 const overviewTable = document.querySelector("#overview-table");
 const deleteAll = document.querySelector("#delete-budget");
 const savings = document.querySelector("#savings").value;
-const totalSavingsElement = document.querySelector('#savings');
+const totalSavingsElement = document.querySelector("#savings");
+
 const totalSavingsText = totalSavingsElement.textContent;
 const totalSavings = parseFloat(totalSavingsText.match(/-?\d+(\.\d+)?/)[0]);
-
-
-
 
 const colors = [
   "#FF6384",
@@ -33,7 +32,7 @@ const colors = [
 
 let table;
 
-
+// Get all income items for a user and budget id
 const getIncomeItems = async (user_id, budget_id) => {
   try {
     const response = await fetch(`/api/revenue/${user_id}/${budget_id}`, {
@@ -46,6 +45,7 @@ const getIncomeItems = async (user_id, budget_id) => {
   }
 };
 
+// Get all expense items for a user and budget id
 const getExpenseItems = async (user_id, budget_id) => {
   try {
     const response = await fetch(`/api/expense/${user_id}/${budget_id}`, {
@@ -58,6 +58,7 @@ const getExpenseItems = async (user_id, budget_id) => {
   }
 };
 
+// Get current budget plan
 const getCurrentBudget = async (user_id, budget_id) => {
   try {
     const response = await fetch(`/api/budget/${user_id}/${budget_id}`, {
@@ -66,11 +67,12 @@ const getCurrentBudget = async (user_id, budget_id) => {
     });
     console.log(response);
     return response;
-    
   } catch (error) {
     console.log(error);
   }
 };
+
+// Get current budget plan by budget id
 const getOneBudget = async (budget_id) => {
   try {
     const response = await fetch(`/api/budget/${budget_id}`, {
@@ -79,12 +81,12 @@ const getOneBudget = async (budget_id) => {
     });
     console.log(response);
     return response;
-    
   } catch (error) {
     console.log(error);
   }
 };
 
+// Handle all requests
 const requestHandler = async (user_id, budget_id) => {
   let dataOne, dataTwo, dataThree;
 
@@ -105,6 +107,7 @@ const requestHandler = async (user_id, budget_id) => {
   return data;
 };
 
+// Get current session
 const getSession = async () => {
   try {
     const response = await fetch("/api/session/current", {
@@ -120,14 +123,16 @@ const getSession = async () => {
   }
 };
 
+// Calculate totals for each category
 const calculateCategoryTotals = async (data) => {
   const categoryTotals = {};
   let totalAmount = 0;
 
   for (const item of data) {
     const { category, amount } = item;
-    totalAmount += parseFloat(amount); // Convert amount to a number before adding
-    categoryTotals[category] = (categoryTotals[category] || 0) + parseFloat(amount);
+    totalAmount += parseFloat(amount);
+    categoryTotals[category] =
+      (categoryTotals[category] || 0) + parseFloat(amount);
   }
 
   const categoryPercentages = {};
@@ -142,10 +147,10 @@ const calculateCategoryTotals = async (data) => {
   };
 };
 
-
+// Renders the income chart
 const renderIncomeChart = async (data) => {
   const labels = Object.keys(data.totals);
-  console.log(data)
+  console.log(data);
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
@@ -172,9 +177,10 @@ const renderIncomeChart = async (data) => {
   });
 };
 
+// Renders the expense chart
 const renderExpenseChart = async (data) => {
   const labels = Object.keys(data.totals);
-  console.log(data.totals)
+  console.log(data.totals);
   const values = Object.values(data.totals);
   const chartData = {
     labels: labels,
@@ -202,6 +208,7 @@ const renderExpenseChart = async (data) => {
   });
 };
 
+// Renders the overview table
 const renderOverviewTable = async (data) => {
   const dataObj = [
     ...data.dataOne.map(({ income_name, user_income_id, ...rest }) => ({
@@ -236,27 +243,15 @@ const renderOverviewTable = async (data) => {
   });
 };
 
-const deleteExpenseFromDb = async (id) => {
-  const response = await fetch(`/api/expense/${id}`, {
-    method: "DELETE",
-  });
-
-  if (response.ok) {
-    expenseResult.textContent = "Deleted Expense Item.";
-    expenseResult.style.color = "green";
-  } else {
-    console.log(response);
-    expenseResult.textContent = response.statusText;
-    expenseResult.style.color = "red";
-  }
-};
-
+// Delete all items in a budget and the budget itself when the delete button is clicked
 deleteAll.addEventListener("click", async (event) => {
   event.preventDefault();
-  const confirmed = confirm("Are you sure you want to delete this budget? This action cannot be undone.");
+  const confirmed = confirm(
+    "Are you sure you want to delete this budget? This action cannot be undone."
+  );
   if (confirmed) {
-  const session = await getSession();
-  console.log(session.budget_id);
+    const session = await getSession();
+    console.log(session.budget_id);
     const response = await fetch(`/api/budget/${session.budget_id}`, {
       method: "DELETE",
     });
@@ -267,41 +262,38 @@ deleteAll.addEventListener("click", async (event) => {
     }
   }
 });
-console.log(totalSavings);
+
+// Render the total savings text
 const renderSavingsText = async () => {
   const savingsElement = document.getElementById("savings");
-  
+
   if (totalSavings >= 0) {
     savingsElement.classList.add("profit");
-    savingsElement.classList.remove("loss"); 
+    savingsElement.classList.remove("loss");
     savingsElement.textContent = `Your total savings are $${totalSavings}`;
   } else if (totalSavings < 0) {
     savingsElement.classList.add("loss");
-    savingsElement.classList.remove("profit"); 
-    savingsElement.textContent = `Your total loss is -$${Math.abs(totalSavings)}`;
+    savingsElement.classList.remove("profit");
+    savingsElement.textContent = `Your total loss is -$${Math.abs(
+      totalSavings
+    )}`;
   }
-}
+};
 
-
-
-
+// Initialize the page
 const init = async () => {
   const session = await getSession();
   const budgetData = await requestHandler(session.user_id, session.budget_id);
-  console.log(budgetData);
-  const currentBudget = await getOneBudget(session.budget_id);
-  console.log("response", currentBudget);
   const incomeCategoryData = await calculateCategoryTotals(budgetData.dataOne);
   const expenseCategoryData = await calculateCategoryTotals(budgetData.dataTwo);
-  const budget = budgetData.dataThree;
   await renderIncomeChart(incomeCategoryData);
   await renderExpenseChart(expenseCategoryData);
   await renderOverviewTable(budgetData);
-  console.log(totalSavings);
   await renderSavingsText(totalSavings);
   return budgetData;
 };
 
+// Calls init when the page loads
 document.addEventListener("DOMContentLoaded", async function () {
   init();
 });
