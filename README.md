@@ -267,6 +267,7 @@ Expenses:
 
 These routes follow REST principles and are based on the relationships between the models  defined in the application. They allow us to perform CRUD operations on the different resources, maintaining the data integrity and associations defined in our models.
 
+### Data Validation in Models
 Code snippet of a data model using life-cycle hooks to control data validation and formatting: 
 
 ```javascript
