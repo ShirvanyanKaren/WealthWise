@@ -3,7 +3,7 @@ const { User, Expense, Income, Budget } = require("../../models");
 const { useAuth } = require("../../utils/auth");
 
 // GET all budgets
-router.get("/", async (req, res) => {
+router.get("/", useAuth, async (req, res) => {
   try {
     const budgetData = await Budget.findAll({
       attributes: [
@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET a single budget
-router.get("/:id", async (req, res) => {
+router.get("/:id", useAuth, async (req, res) => {
   try {
     const singleBudget = await Budget.findOne({
       attributes: [
@@ -191,7 +191,7 @@ router.put("/:id", useAuth, async (req, res) => {
 });
 
 // DELETE a budget
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", useAuth, async (req, res) => {
   try {
     const deleteBudget = await Budget.destroy({
       where: { id: req.params.id },

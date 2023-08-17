@@ -1,13 +1,17 @@
 const router = require("express").Router();
+const { useAuth } = require("../../utils/auth");
 
-// GET current session data
-router.get("/current", async (req, res) => {
+// GET current session data 
+router.get("/current", useAuth, async (req, res) => {
+  try {
     const sessionData = await {
-        user_id: req.session.user_id,
-        budget_id: req.session.budget_id
+      user_id: req.session.user_id,
+      budget_id: req.session.budget_id,
     };
-    console.log(sessionData);
     res.json(sessionData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;
