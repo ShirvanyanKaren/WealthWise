@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {User, Budget, Income, Expense} = require('../models')
+const { User, Budget, Income, Expense } = require("../models");
 const { useAuth } = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -10,17 +10,17 @@ router.get("/", async (req, res) => {
           user_budget_id: req.session.user_id,
         },
       });
-  
-      const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-      console.log(budgets);
-  
-    res.render("homepage", {
-      budgets,
-      logged_in: req.session.logged_in,
-    });
-  } else {
-    res.render("homepage");
-  }
+      const budgets = userBudgetData.map((budget) =>
+        budget.get({ plain: true })
+      );
+      console.log(budgets[0]);
+      res.render("homepage", {
+        budgets,
+        logged_in: req.session.logged_in,
+      });
+    } else {
+      res.render("homepage");
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -65,10 +65,10 @@ router.get("/items", useAuth, async (req, res) => {
     console.log(budgets);
     res.render("items", {
       logged_in: req.session.logged_in,
-      budgets
+      budgets,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -85,7 +85,7 @@ router.get("/items/:id", useAuth, async (req, res) => {
     req.session.save();
     res.render("items", {
       logged_in: req.session.logged_in,
-      budgets
+      budgets,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -93,30 +93,32 @@ router.get("/items/:id", useAuth, async (req, res) => {
 });
 
 router.get("/budget/:id", useAuth, async (req, res) => {
-  try {  const userBudgetData = await Budget.findAll({
-    where: {
-      user_budget_id: req.session.user_id,
-    },
-  });
-  const singleBudget = await Budget.findOne({
-    where: {
-      id: req.params.id,
+  try {
+    const userBudgetData = await Budget.findAll({
+      where: {
+        user_budget_id: req.session.user_id,
+      },
+    });
+
+    const singleBudget = await Budget.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    const budget = await singleBudget.get({ plain: true });
+    const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
+    if (budget.total_expense === null && budget.total_income === null) {
+      return res.redirect(`/items/${req.params.id}`);
     }
-  });
-  const budget = await singleBudget.get({ plain: true});
-  const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-  console.log(budgets);
-  console.log(budget);
+    ƒ;
     req.session.budget_id = req.params.id;
     req.session.save();
-    console.log(req.session.budget_id)
     res.render("budgetAnalysis", {
       logged_in: req.session.logged_in,
       budgets,
-      budget
+      budget,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -131,15 +133,15 @@ router.get("/budget", useAuth, async (req, res) => {
     const singleBudget = await Budget.findOne({
       where: {
         id: req.session.budget_id,
-      }
+      },
     });
-    const budget = await singleBudget.get({ plain: true});
+    const budget = await singleBudget.get({ plain: true });
     const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
     console.log(budgets);
     res.render("budgetAnalysis", {
       logged_in: req.session.logged_in,
       budgets,
-      budget
+      budget,
     });
   } catch (err) {
     console.log(err);

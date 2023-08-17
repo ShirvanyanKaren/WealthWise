@@ -8,4 +8,5 @@ const useAuth = (req, res, next) => {
   shouldAuthenticate ? res.render("unauthorized") : next();
 };
 
+
 module.exports = { useAuth };
