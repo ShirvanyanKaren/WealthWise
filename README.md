@@ -24,12 +24,12 @@ This application makes use of the following NPM packages:
 | ES6                       | ![ES6](https://img.shields.io/badge/ES6-✓-yellow)                                                                                                            | -                                                                                                               |
 | CSS                       | ![CSS](https://img.shields.io/badge/CSS-✓-blue)                                                                                                              | -                                                                                                               |
 
-
 ## Landing Page:
+
 ![1692142268690](image/README/1692142268690.png)
 
-
 ## Table of Contents
+
 * [User Stories](#user-stories)
 * [Code Highlights](#code-highlights)
 * [Models and RESTful Routes](#models-and-restful-routes)
@@ -39,14 +39,15 @@ This application makes use of the following NPM packages:
 * [Learning Points](#learning-points)
 * [Author/Credits](#authorcredits)
 * [License](#license)
- 
 
 ## User stories
+
 ```md
 AS A USER
 I WANT to have my own account
 SO THAT I can log into the system and manage my own assets
 ```
+
  ![Create an account](./image/README/SignUp.gif)
 
 ```js
@@ -63,7 +64,9 @@ router.use("/login", (req, res) => {
 I WANT to be able to access expense and income categories
 SO THAT I can factor that into my budgeting tool
 ```
+
  ![Add expense and income](./image/README/AddExpInc.gif)
+
 ```js
 router.get("/items", useAuth, async (req, res) => {
   try {
@@ -86,7 +89,6 @@ router.get("/items", useAuth, async (req, res) => {
 });
 ```
 
-
 ```md
 I WANT to be able to calculate a budget with specific parameters
 SO THAT can create a budget accommodated to myself and my financial plan 
@@ -94,6 +96,7 @@ I WANT to create a budget to track my expenses and income
 SO THAT I can budget accordingly
 I WANT to be able to see graphs and tables
 ```
+
 ![Create a budget](./image/README/CreateBudget.gif)
 
 ```js
@@ -133,8 +136,10 @@ router.get("/budget/:id", useAuth, async (req, res) => {
 I WANT to be able to go back to edit certain income/expense
 SO THAT I can change my budget based on my current circumstances
 ```
+
  ![Edit Income or Expense](./image/README/EditPost.gif)
- ```js
+
+```js
 router.get("/items/:id", useAuth, async (req, res) => {
   try {
     const userBudgetData = await Budget.findAll({
@@ -153,12 +158,13 @@ router.get("/items/:id", useAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
- ```
+```
 
 ```md
 I WANT to be able to go back to delete and view
 SO THAT I can review previous budgets and clear my budget list
 ```
+
  ![Delete a Budget](./image/README/DeleteBudget.gif)
 
 ```js
@@ -205,9 +211,11 @@ const createUsersExpenses = async () => {
 module.exports = createUsersExpenses;
 
 ```
+
 ## Models and RESTful Routes
 
 ### Models
+
 The data model associations were integrated to create links from the expenses and income to the budget through the foreign key associations. The foreign key, user_budget_id, within the budget allowed us to access all of the expenses and income of a user through their given budget.
 
 ![Models](./image/README/models.png)
@@ -239,12 +247,13 @@ Budget.belongsTo(User, {
     foreignKey: 'user_budget_id',
 });
 ```
-These associations allow us to query the database effectively from the backend and return data based on specific user budgets. 
 
-
+These associations allow us to query the database effectively from the backend and return data based on specific user budgets.
 
 ### RESTful Routes
+
 Budgets:
+
 * GET /budgets - Retrieve all budgets.
 * GET /budgets/:id - Retrieve a specific budget.
 * POST /budgets - Create a new budget.
@@ -252,6 +261,7 @@ Budgets:
 * DELETE /budgets/:id - Delete a specific budget.
 
 Income:
+
 * GET /budgets/:budget_id/incomes - Retrieve all incomes for a specific budget.
 * GET /budgets/:budget_id/incomes/:id - Retrieve a specific income for a specific budget.
 * POST /budgets/:budget_id/incomes - Create a new income for a specific budget.
@@ -259,6 +269,7 @@ Income:
 * DELETE /budgets/:budget_id/incomes/:id - Delete a specific income for a specific budget.
 
 Expenses:
+
 * GET /budgets/:budget_id/expenses - Retrieve all expenses for a specific budget.
 * GET /budgets/:budget_id/expenses/:id - Retrieve a specific expense for a specific budget.
 * POST /budgets/:budget_id/expenses - Create a new expense for a specific budget.
@@ -268,7 +279,8 @@ Expenses:
 These routes follow REST principles and are based on the relationships between the models  defined in the application. They allow us to perform CRUD operations on the different resources, maintaining the data integrity and associations defined in our models.
 
 ### Data Validation in Models
-Code snippet of a data model using life-cycle hooks to control data validation and formatting: 
+
+Code snippet of a data model using life-cycle hooks to control data validation and formatting:
 
 ```javascript
 class Expense extends Model {}
@@ -363,6 +375,9 @@ Expense.init(
 ## APIs and New Packages
 
 ### Tabulator
+
+![1692312900043](image/README/1692312900043.png)
+
 ```js
 const renderOverviewTable = async (data) => {
   const dataObj = [
@@ -382,6 +397,9 @@ const renderOverviewTable = async (data) => {
 ```
 
 ### Faker JS
+
+![1692312595661](image/README/1692312595661.png)
+
 ```js
 const createUsers = async () => {
     const users = [...Array(10)].map((user) => ({
@@ -395,8 +413,11 @@ const createUsers = async () => {
 ```
 
 ### Chart JS
+
+![1692312865294](image/README/1692312865294.png)
+
 ```js
-onst renderIncomeChart = async (data) => {
+const renderIncomeChart = async (data) => {
   const labels = Object.keys(data.totals);
   console.log(data)
   const values = Object.values(data.totals);
@@ -441,12 +462,9 @@ Link to Node.js Downloads: [https://nodejs.org/en](https://nodejs.org/en)
 8. You will be taken to a window that will display charts and tables corresponding to your values you have selected you will also be given a monthly financial breakdown of your costs and income values as well as your net gain or loss.
 9. You can edit your plan by clicking on the View Budgets to return to the area to add or remove items from that saved plan.
 
-
 ## Learning Points
 
 Building MySQL Databases, Tables, Cookies and authentication handling. Alternatives to storing plain text passwords using databases. Front end / Back end integration using Restful routes. Creating and manipulating data using MySQL and Sequelize. Use of ORMs. And front-end / back-end integration.
-
-
 
 ## Author/Credits
 

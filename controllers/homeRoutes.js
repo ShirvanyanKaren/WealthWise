@@ -3,7 +3,7 @@ const { Budget } = require("../models");
 const { useAuth } = require("../utils/auth");
 
 // GET all budgets
-router.get("/", useAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     if (req.session.user_id) {
       const userBudgetData = await Budget.findAll({
