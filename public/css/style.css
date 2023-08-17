@@ -117,7 +117,7 @@ button:active {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -246,7 +246,7 @@ button:active {
   margin: 1rem;
 }
 
-.pie-chart-section{
+.pie-chart-section {
   display: flex;
   justify-content: space-evenly;
   max-width: 1000px;
@@ -255,13 +255,12 @@ button:active {
   margin: 0rem;
 }
 
-.expense-btn-container{
+.expense-btn-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-
 
 .unauthorized-container {
   max-width: 80vw;
@@ -296,7 +295,7 @@ button:active {
   padding-top: 1rem;
 }
 
-.submit-budget{
+.submit-budget {
   background-color: var(--light-blue);
   color: var(--off-white);
 }
@@ -327,6 +326,69 @@ button:active {
   margin: 1rem 0;
 }
 
+.total-savings {
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+}
+
+.profit:hover {
+  color: gray;
+}
+.loss:hover {
+  color: gray;
+}
+
+.profit {
+  background-color: #ddffdd;
+  border-left: 6px solid #04aa6d;
+  text-align: center;
+  padding: 1rem;
+  color: #101010;
+  margin-bottom: 1rem;
+  font: bolder;
+  font-size: 30px;
+}
+.loss {
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font: bolder;
+  color: #101010;
+  font-size: 30px;
+}
+
+.total-savings:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  color: gray;
+}
+
+.loss a,
+.profit a {
+  font-weight: bold;
+  margin: 0;
+  color: gray;
+}
+
+.delete-btn {
+  margin-top: 20px;
+  color: white;
+  background-color: red;
+  border-radius: 4px;
+  height: 40px;
+  width: 180px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: rgb(221, 123, 123);
+  transform: scale(1.1);
+  color: white;
+}
 /* Footer Styles */
 footer {
   display: flex;
@@ -340,76 +402,6 @@ footer {
 footer p {
   color: var(--off-white);
 }
-
-.total-savings{
-  margin-bottom: 1rem;
-  margin-top: 3rem;
-}
-
-
-.profit:hover{
-  color:gray ;
-}
-.loss:hover{
-  color:gray ;
-}
-
-.profit {
-  background-color: #ddffdd;
-  border-left: 6px solid #04AA6D;
-  text-align: center; 
-  padding: 1rem; 
-  color: #101010;
-  margin-bottom: 1rem;
-  font: bolder;
-  font-size: 30px; 
-}
-.loss {
-  background-color: #ffdddd;
-  border-left: 6px solid #f44336;
-  text-align: center; 
-  padding: 1rem; 
-  margin-bottom: 1rem;
-  font: bolder;
-  color:#101010;
-  font-size: 30px; 
-}
-
-.total-savings:hover{
-  transform: scale(1.1);
-  cursor: pointer; 
-  color: gray;
-}
-
-.loss a,
-.profit a{
-  font-weight: bold; 
-  margin: 0; 
-  color: gray;
-}
-
-
-
-.delete-btn {
-  margin-top: 20px;
-  color: white;
-  background-color: red;
-  border-radius: 4px;
-  height: 40px; 
-  width: 180px; 
-  cursor: pointer; 
-  border: none; 
-  transition: background-color 0.3s; 
-}
-
-
-.delete-btn:hover {
-  background-color: rgb(221, 123, 123);
-  transform: scale(1.1);
-  color: white;
-}
-
-
 
 @media only screen and (max-width: 1250px) {
   .welcome-page {
@@ -432,7 +424,7 @@ footer p {
     z-index: 999;
   }
 
-  .pie-chart-section{
+  .pie-chart-section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -450,7 +442,7 @@ footer p {
     margin-top: 3rem;
   }
 
-  #overview-table{
+  #overview-table {
     width: 100%;
   }
 
@@ -473,7 +465,7 @@ footer p {
     z-index: 1;
   }
 
-  .dropbtn{
+  .dropbtn {
     color: var(--black);
   }
 
@@ -515,10 +507,8 @@ footer p {
   .budget-total-savings {
     display: block;
     text-align: center;
-    margin-top: 1rem; 
+    margin-top: 1rem;
   }
-
- 
 
   .income,
   .expense {

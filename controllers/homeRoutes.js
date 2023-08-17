@@ -138,7 +138,7 @@ router.get("/budget/:id", useAuth, async (req, res) => {
   }
 });
 
-//gets the budget analysis page by user_budget_id saved in session
+// gets the budget analysis page by user_budget_id saved in session
 router.get("/budget", useAuth, async (req, res) => {
   try {
     const userBudgetData = await Budget.findAll({
