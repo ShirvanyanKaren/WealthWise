@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Budget } = require("../models");
 const { useAuth } = require("../utils/auth");
 
+// GET all budgets
 router.get("/", async (req, res) => {
   try {
     if (req.session.user_id) {
@@ -10,17 +11,18 @@ router.get("/", async (req, res) => {
           user_budget_id: req.session.user_id,
         },
       });
-  
-      const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-      console.log(budgets);
-  
-    res.render("homepage", {
-      budgets,
-      logged_in: req.session.logged_in,
-    });
-  } else {
-    res.render("homepage");
-  }
+
+      const budgets = userBudgetData.map((budget) =>
+        budget.get({ plain: true })
+      );
+
+      res.render("homepage", {
+        budgets,
+        logged_in: req.session.logged_in,
+      });
+    } else {
+      res.render("homepage");
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -69,10 +71,10 @@ router.get("/items", useAuth, async (req, res) => {
 
     res.render("items", {
       logged_in: req.session.logged_in,
-      budgets
+      budgets,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -90,7 +92,7 @@ router.get("/items/:id", useAuth, async (req, res) => {
     req.session.save();
     res.render("items", {
       logged_in: req.session.logged_in,
-      budgets
+      budgets,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -99,20 +101,30 @@ router.get("/items/:id", useAuth, async (req, res) => {
 
 // Redirects the user to the budget analysis page by user_budget_id for the logged in user
 router.get("/budget/:id", useAuth, async (req, res) => {
-  try {  const userBudgetData = await Budget.findAll({
-    where: {
-      user_budget_id: req.session.user_id,
-    },
-  });
-  const singleBudget = await Budget.findOne({
-    where: {
-      id: req.params.id,
+  try {
+    const userBudgetData = await Budget.findAll({
+      where: {
+        user_budget_id: req.session.user_id,
+      },
+    });
+    const singleBudget = await Budget.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    const budget = await singleBudget.get({ plain: true });
+    const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
+
+    console.log(budget);
+    console.log(budgets);
+
+    if (budget.total_income === null && budget.total_expense === null) {
+      req.session.budget_id = req.params.id;
+      req.session.save();
+      res.redirect("/items/" + req.params.id);
+      return;
     }
-  });
-  const budget = await singleBudget.get({ plain: true});
-  const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-  console.log(budgets);
-  console.log(budget);
+
     req.session.budget_id = req.params.id;
     req.session.save();
     res.render("budgetAnalysis", {
@@ -121,6 +133,7 @@ router.get("/budget/:id", useAuth, async (req, res) => {
       budget,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

@@ -41,9 +41,6 @@ This application makes use of the following NPM packages:
 * [License](#license)
  
 
-
-
-
 ## User stories
 ```md
 AS A USER
