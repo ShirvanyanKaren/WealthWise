@@ -2,9 +2,9 @@ const router = require("express").Router();
 const { User, Expense } = require("../../models");
 const { useAuth } = require("../../utils/auth");
 
+// GET all expenses
 router.get("/", useAuth, async (req, res) => {
   try {
-
     const expenseData = await Expense.findAll({
       attributes: [
         "id",
@@ -26,25 +26,13 @@ router.get("/", useAuth, async (req, res) => {
         },
       ],
     });
-
     res.json(expenseData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// router.get("/:id", useAuth, async (req, res) => {
-//   try {
-//     await session.save({
-//       user_id: req.session.user_id,
-//       budget_id: req.params.id,
-//     });
-//     res.json(session);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
+// GET a single expense by user and budget
 router.get("/:user/:budget", useAuth, async (req, res) => {
   try {
     const findExpense = await Expense.findAll({
@@ -60,6 +48,7 @@ router.get("/:user/:budget", useAuth, async (req, res) => {
   }
 });
 
+// GET a single expense by id
 router.post("/", useAuth, async (req, res) => {
   try {
     const createExpense = await Expense.create({
@@ -78,6 +67,7 @@ router.post("/", useAuth, async (req, res) => {
   }
 });
 
+// PUT a single expense by id
 router.put("/:id", useAuth, async (req, res) => {
   try {
     const updateExpense = await Expense.update(
@@ -106,6 +96,7 @@ router.put("/:id", useAuth, async (req, res) => {
   }
 });
 
+// DELETE a single expense by id
 router.delete("/:id", useAuth, async (req, res) => {
   try {
     const deleteExpense = await Expense.destroy({

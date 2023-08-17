@@ -20,6 +20,12 @@ const expenseFormHandler = async (event) => {
     return;
   }
 
+  if (amount === "") {
+    expenseResult.textContent = "Expense amount must not be empty.";
+    expenseResult.style.color = "red";
+    return;
+  }
+
   if (!expense_name) {
     expenseResult.textContent = "Please enter a valid expense name.";
     expenseResult.style.color = "red";

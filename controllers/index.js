@@ -7,8 +7,8 @@ router.use("/", homeRoutes);
 router.use("/api", apiRoutes);
 router.use("/create", createBudgetRoutes);
 
-router.get('*', (req, res) => {
-    res.render('404');
-  });
+router.get("*", (req, res) => {
+  res.render("404");
+});
 
 module.exports = router;

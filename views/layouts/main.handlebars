@@ -36,18 +36,18 @@
                 >SignUp</span></a></li>
           {{else}}
             <li class="nav-item"><a href="/create"><span
-                 aria-hidden="true"
+                  aria-hidden="true"
                 >Create Budget</span></a></li>
             {{#if budgets.length}}
               <li class="nav-item dropdown">
-            <a href="#" class="dropbtn">View Budgets</a>
-            <div class="dropdown-content">
-              {{#each budgets as |budget|}}
-                <a href="/budget/{{id}}">{{budget_name}}</a>
-              {{/each}}
-              </div>
+                <a href="#" class="dropbtn">View Budgets</a>
+                <div class="dropdown-content">
+                  {{#each budgets as |budget|}}
+                    <a href="/budget/{{id}}">{{budget_name}}</a>
+                  {{/each}}
+                </div>
               </li>
-               {{/if}}
+            {{/if}}
             <li class="nav-item"><a href="/logout"><span
                   aria-hidden="true"
                 >Logout</span></a></li>
@@ -86,7 +86,9 @@
           >Karen Shirvanyan</a></p>
       </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.3/dist/chart.umd.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.3.3/dist/chart.umd.min.js"
+    ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/luxon@3.4.0/build/global/luxon.min.js"
     ></script>

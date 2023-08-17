@@ -18,6 +18,12 @@ const incomeFormHandler = async (event) => {
     return;
   }
 
+  if (amount === "") {
+    incomeResult.textContent = "Income amount must not be empty.";
+    incomeResult.style.color = "red";
+    return;
+  }
+
   if (!income_name) {
     incomeResult.textContent = "Please enter a valid income name.";
     incomeResult.style.color = "red";

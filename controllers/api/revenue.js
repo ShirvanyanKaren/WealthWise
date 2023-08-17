@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { User, Income } = require("../../models");
 const { useAuth } = require("../../utils/auth");
 
+// GET all income
 router.get("/", useAuth, async (req, res) => {
   try {
     const incomeData = await Income.findAll({
@@ -36,6 +37,7 @@ router.get("/", useAuth, async (req, res) => {
   }
 });
 
+// GET a single income by user and budget
 router.get("/:user/:budget", useAuth, async (req, res) => {
   try {
     const incomeData = await Income.findAll({
@@ -55,6 +57,7 @@ router.get("/:user/:budget", useAuth, async (req, res) => {
   }
 });
 
+// GET a single income by id
 router.get("/:id", useAuth, async (req, res) => {
   try {
     const findIncome = await Income.findOne({
@@ -84,7 +87,7 @@ router.get("/:id", useAuth, async (req, res) => {
   }
 });
 
-// add withAuth
+// POST a single income
 router.post("/", useAuth, async (req, res) => {
   try {
     console.log(req);
@@ -104,6 +107,7 @@ router.post("/", useAuth, async (req, res) => {
   }
 });
 
+// PUT a single income
 router.put("/:id", useAuth, async (req, res) => {
   try {
     const updateIncome = await Income.update(
@@ -126,6 +130,7 @@ router.put("/:id", useAuth, async (req, res) => {
   }
 });
 
+// DELETE a single income
 router.delete("/:id", useAuth, async (req, res) => {
   try {
     const deleteIncome = await Income.destroy({
