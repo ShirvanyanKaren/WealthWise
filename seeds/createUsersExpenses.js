@@ -1,6 +1,8 @@
+// Importing faker to generate fake data
 const { faker } = require("@faker-js/faker");
 const { User, Expense, Budget } = require("../models");
 
+// List of expense categories
 const expenseCategories = [
   "Clothing and Accessories",
   "Debt Payments",
@@ -20,6 +22,7 @@ const expenseCategories = [
   "Utilities and Bills",
 ];
 
+// Function to create fake expenses for each user
 const createUsersExpenses = async () => {
   const users = await User.findAll({
     include: [{ model: Budget, limit: 2 }],

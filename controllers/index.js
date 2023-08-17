@@ -7,8 +7,9 @@ router.use("/", homeRoutes);
 router.use("/api", apiRoutes);
 router.use("/create", createBudgetRoutes);
 
-router.get('*', (req, res) => {
-    res.render('404');
-  });
+// If no API routes are hit, render the 404 page.
+router.get("*", (req, res) => {
+  res.render("404");
+});
 
 module.exports = router;

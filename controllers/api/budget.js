@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const { Model } = require("sequelize");
 const { User, Expense, Income, Budget } = require("../../models");
 const { useAuth } = require("../../utils/auth");
-const { findAll } = require("../../models/Budget");
 
+// GET all budgets
 router.get("/", async (req, res) => {
   try {
     const budgetData = await Budget.findAll({
@@ -38,6 +37,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET a single budget
 router.get("/:id", async (req, res) => {
   try {
     const singleBudget = await Budget.findOne({
@@ -75,6 +75,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// GET a single budget by user id
 router.get("/:user/:budgetid", useAuth, async (req, res) => {
   try {
     const singleBudget = await Budget.findOne({
@@ -113,6 +114,7 @@ router.get("/:user/:budgetid", useAuth, async (req, res) => {
   }
 });
 
+// POST a new budget
 router.post("/", useAuth, async (req, res) => {
   try {
     console.log(req.body.newBudgetName);
@@ -157,6 +159,7 @@ router.post("/", useAuth, async (req, res) => {
   }
 });
 
+// PUT update a budget
 router.put("/:id", useAuth, async (req, res) => {
   try {
     const [incomeData, expenseData] = await Promise.all([
@@ -187,6 +190,7 @@ router.put("/:id", useAuth, async (req, res) => {
   }
 });
 
+// DELETE a budget
 router.delete("/:id", async (req, res) => {
   try {
     const deleteBudget = await Budget.destroy({

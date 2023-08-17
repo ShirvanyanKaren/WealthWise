@@ -1,5 +1,6 @@
 import Tabulator from "tabulator-tables";
 
+// Create a table using Tabulator library 
 const createTable = async (location, path) => {
     const tableData = await getTableData(path);
     if (!tableData) {
@@ -34,6 +35,7 @@ const createTable = async (location, path) => {
     });
 };
 
+// Fetch data from the server
 const getTableData = async (path) => {
     try {
         const response = await fetch(path, {

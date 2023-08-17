@@ -1,5 +1,7 @@
+// Query Selectors
 const submitBudgetEl = document.querySelector("#submit-budget");
 
+// Handle Submit Budget
 const submitBudget = async (event) => {
   event.preventDefault();
   const sessionResponse = await fetch("/api/session/current");
@@ -17,4 +19,5 @@ const submitBudget = async (event) => {
   }
 };
 
+// Event Listeners
 submitBudgetEl.addEventListener("click", submitBudget);

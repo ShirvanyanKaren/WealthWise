@@ -1,4 +1,4 @@
-
+// format date as MM/DD/YYYY
 const format_date = (date) => {
   console.log(date);
   const month = date.getMonth() + 1;

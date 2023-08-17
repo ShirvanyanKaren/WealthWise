@@ -1,8 +1,12 @@
+// Query Selectors
 const expenseTableEL = document.querySelector("#expense-table");
 const expenseResult = document.querySelector(".expense-result");
+const expenseForm = document.querySelector(".expense");
 
+// Tabulator variable
 let expenseTable;
 
+// Create new expense item
 const expenseFormHandler = async (event) => {
   event.preventDefault();
   const expense_name = document.querySelector("#expense-name").value;
@@ -12,6 +16,12 @@ const expenseFormHandler = async (event) => {
 
   if (isNaN(amount)) {
     expenseResult.textContent = "Please enter a valid amount.";
+    expenseResult.style.color = "red";
+    return;
+  }
+
+  if (amount === "") {
+    expenseResult.textContent = "Expense amount must not be empty.";
     expenseResult.style.color = "red";
     return;
   }
@@ -54,15 +64,8 @@ const expenseFormHandler = async (event) => {
   }
 };
 
-const deleteButtonFormatter = (cell, formatterParams, onRendered) => {
-  const id = cell.getRow().getData().id;
-  return `<button class="delete-button" data-id="${id}">Delete</button>`;
-};
-
+// Creates and populates the expense table
 const createExpenseTable = async () => {
-
-  
-
   const data = await getTableData("/api/expense");
   expenseTable = new Tabulator(expenseTableEL, {
     data: data,
@@ -112,6 +115,7 @@ const createExpenseTable = async () => {
   });
 };
 
+// Handles the deletion of an expense item
 const deleteExpenseFromDb = async (id) => {
   const response = await fetch(`/api/expense/${id}`, {
     method: "DELETE",
@@ -127,10 +131,8 @@ const deleteExpenseFromDb = async (id) => {
   }
 };
 
-document
-  .querySelector(".expense")
-  .addEventListener("submit", expenseFormHandler);
-
+// Event Listeners
+expenseForm.addEventListener("submit", expenseFormHandler);
 document.addEventListener("DOMContentLoaded", async () => {
   await createExpenseTable();
 });

@@ -1,5 +1,7 @@
+// This script updates the total_income, total_expense, and total_savings
 const { Budget, Income, Expense } = require("../models");
 
+// This function updates the total_income, total_expense, and total_savings in the budgets table
 const updateBudgets = async () => {
   try {
     const budgets = await Budget.findAll();

@@ -1,6 +1,8 @@
+// Importing the faker module
 const { faker } = require("@faker-js/faker");
 const { User, Income, Budget } = require("../models");
 
+// Income categories
 const incomeCategories = [
   "Alimony/Child Support",
   "Business Income",
@@ -13,6 +15,7 @@ const incomeCategories = [
   "Other",
 ];
 
+// Function to create incomes for each user
 const createUsersIncomes = async () => {
   const users = await User.findAll({
     include: [{ model: Budget, limit: 2 }],
