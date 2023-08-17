@@ -327,8 +327,11 @@ button:active {
 }
 
 .total-savings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   margin-bottom: 1rem;
-  margin-top: 3rem;
 }
 
 .profit:hover {
@@ -343,10 +346,10 @@ button:active {
   border-left: 6px solid #04aa6d;
   text-align: center;
   padding: 1rem;
-  color: #101010;
+  color: var(--black);
   margin-bottom: 1rem;
   font: bolder;
-  font-size: 30px;
+  font-size: 1.5rem;
 }
 .loss {
   background-color: #ffdddd;
@@ -355,8 +358,8 @@ button:active {
   padding: 1rem;
   margin-bottom: 1rem;
   font: bolder;
-  color: #101010;
-  font-size: 30px;
+  color: var(--black);
+  font-size: 1.5rem;
 }
 
 .total-savings:hover {
@@ -373,14 +376,16 @@ button:active {
 }
 
 .delete-btn {
-  margin-top: 20px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: white;
   background-color: red;
   border-radius: 4px;
   height: 40px;
   width: 180px;
   cursor: pointer;
-  border: none;
+  border: var(--border);
+  box-shadow: var(--box-shadow);
   transition: background-color 0.3s;
 }
 

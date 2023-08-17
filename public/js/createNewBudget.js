@@ -1,7 +1,7 @@
 // Query Selectors
 const newBudgetForm = document.querySelector("#new-budget-form");
 const errorElement = document.querySelector("#error-message");
-const dropdown = document.querySelector("#budgetDropdown");
+const dropdown = document.querySelector("#budget-dropdown");
 
 // Event Handlers for New Budget Form
 const newBudgetHandler = async (event) => {

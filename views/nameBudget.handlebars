@@ -2,12 +2,13 @@
   <h2>Choose a Budget Name</h2>
   <div id="error-message" style="color: red;"></div>
   <br />
-  {{> budgetList}}
+
   <form class="form" id="new-budget-form">
     <label for="budget-name">Name</label>
     <div class="form-group">
       <input class="form-input" type="text" id="budget-name" maxlength="255" />
     </div>
+    {{> budgetList}}
     <div class="form-btn-container">
       <button type="submit">Submit</button>
     </div>

@@ -75,8 +75,6 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    console.log("valid Password");
-
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;

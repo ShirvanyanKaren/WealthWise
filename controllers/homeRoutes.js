@@ -3,7 +3,7 @@ const { Budget } = require("../models");
 const { useAuth } = require("../utils/auth");
 
 // GET all budgets
-router.get("/", async (req, res) => {
+router.get("/", useAuth, async (req, res) => {
   try {
     if (req.session.user_id) {
       const userBudgetData = await Budget.findAll({
@@ -114,9 +114,6 @@ router.get("/budget/:id", useAuth, async (req, res) => {
     });
     const budget = await singleBudget.get({ plain: true });
     const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-
-    console.log(budget);
-    console.log(budgets);
 
     if (budget.total_income === null && budget.total_expense === null) {
       req.session.budget_id = req.params.id;
