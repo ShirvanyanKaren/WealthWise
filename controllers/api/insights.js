@@ -16,28 +16,29 @@ router.get('/:id', async (req, res) => {
         ],
       });
   
-
       console.log(monthlyBudgetData);
-      const totalMonthlySavings = monthlyBudgetData.reduce((total, item) => total + item.total_savings, 0);
+
+      const totalMonthlySavings = monthlyBudgetData.reduce((total, item) => parseFloat(total + item.total_savings), 0);
+
       console.log(totalMonthlySavings);
   
-
-
     const monthSavingsPerc = monthlyBudgetData.map(item => ({
         month: item.month,
-        savings_percent: (item.total_savings/totalMonthlySavings) * 100,
+        savings_percent: parseFloat((item.total_savings/totalMonthlySavings) * 100).toFixed(2),
     }));
     
 
-    averageMonthlySavings = totalMonthlySavings/monthlyBudgetData.length
+    averageMonthlySavings = parseFloat(totalMonthlySavings/monthlyBudgetData.length).toFixed(2);
 
       console.log(monthSavingsPerc);
   
-      res.json({
+      res.render("insights", {
+        logged_in: req.session.logged_in,
         totalMonthlySavings,
         monthSavingsPerc,
         averageMonthlySavings
       });
+      
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'An error occurred while fetching data.' });
