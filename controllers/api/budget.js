@@ -113,6 +113,19 @@ router.get("/:user/:budgetid", useAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.post("/:id", async (req, res) => {
+try{
+  const budgetCreate = await Budget.create(req.body, {
+    where: {
+      user_budget_id: req.params.id,
+    }
+  })
+  res.status(200).json(budgetCreate);
+} catch(err) {
+  console.log(err);
+  res.status(500).json(err);
+}
+})
 
 // POST a new budget
 router.post("/", useAuth, async (req, res) => {

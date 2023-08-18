@@ -25,6 +25,10 @@ Budget.init(
         key: "id",
       },
     },
+    month:  {
+      type: DataTypes.STRING,
+      allowNull: true,
+     },
     total_expense: {
       type: DataTypes.DECIMAL(10, 2),
       validate: {
