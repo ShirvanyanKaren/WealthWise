@@ -162,4 +162,26 @@ router.get("/budget", useAuth, async (req, res) => {
   }
 });
 
+
+router.get("/insights", useAuth, async (req, res) => {
+  try { 
+    const userBudgetData = await Budget.findAll({
+    where: {
+      user_budget_id: req.session.user_id,
+    },
+  });
+  const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
+  req.session.budget_id = req.params.id;
+  req.session.save();
+  res.render("insights", {
+    logged_in: req.session.logged_in,
+    budgets,
+  });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
+

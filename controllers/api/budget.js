@@ -153,6 +153,7 @@ router.post("/", useAuth, async (req, res) => {
     const newBudget = await Budget.create({
       budget_name: req.body.newBudgetName,
       user_budget_id: req.session.user_id,
+      month: req.body.budgetMonth
     });
 
     if (!newBudget) {

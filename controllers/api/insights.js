@@ -2,13 +2,11 @@ const router = require("express").Router();
 const { User, Expense, Income, Budget } = require("../../models");
 
 
-
-
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
       const monthlyBudgetData = await Budget.findAll({
         where: {
-          user_budget_id: req.params.id,
+          user_budget_id: req.session.user_id,
         },
         attributes: [
           "total_savings",
@@ -24,21 +22,22 @@ router.get('/:id', async (req, res) => {
   
     const monthSavingsPerc = monthlyBudgetData.map(item => ({
         month: item.month,
-        savings_percent: parseFloat((item.total_savings/totalMonthlySavings) * 100).toFixed(2),
+        savings_percent: (parseFloat((item.total_savings/totalMonthlySavings) * 100).toFixed(2) + "%"),
     }));
     
 
-    averageMonthlySavings = parseFloat(totalMonthlySavings/monthlyBudgetData.length).toFixed(2);
+    const averageMonthlySavings = parseFloat(totalMonthlySavings/monthlyBudgetData.length).toFixed(2);
 
-      console.log(monthSavingsPerc);
-  
-      res.render("insights", {
-        logged_in: req.session.logged_in,
-        totalMonthlySavings,
-        monthSavingsPerc,
-        averageMonthlySavings
-      });
-      
+    console.log(monthSavingsPerc);
+
+    const budgetData = {
+      totalMonthlySavings,
+      averageMonthlySavings,
+      monthSavingsPerc
+    }
+
+    res.json(budgetData);
+
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'An error occurred while fetching data.' });

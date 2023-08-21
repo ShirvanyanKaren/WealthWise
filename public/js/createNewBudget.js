@@ -8,11 +8,13 @@ const newBudgetHandler = async (event) => {
   event.preventDefault();
   try {
     const newBudgetName = document.querySelector("#budget-name").value.trim();
+    const budgetMonth = document.querySelector("#month-dropdown").value;
+    console.log(budgetMonth);
     console.log(newBudgetName);
     if (newBudgetName) {
       const response = await fetch("/api/budget", {
         method: "POST",
-        body: JSON.stringify({ newBudgetName }),
+        body: JSON.stringify({ newBudgetName, budgetMonth }),
         headers: { "Content-Type": "application/json" },
       });
 
