@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   
     const monthSavingsPerc = monthlyBudgetData.map(item => ({
         month: item.month,
-        savings_percent: (parseFloat((item.total_savings/totalMonthlySavings) * 100).toFixed(2) + "%"),
+        savings_percent: (parseFloat((item.total_savings/(Math.abs(totalMonthlySavings))) * 100).toFixed(2) + "%"),
     }));
     
 

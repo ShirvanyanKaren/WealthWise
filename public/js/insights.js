@@ -38,12 +38,22 @@ const getBudgetByMonth = async () => {
 };
 
 const renderMonthGraph = async (data) => {
-  try {
-    const labels = data.monthSavingsPerc.map(item => item.month);
-    const values = data.monthSavingsPerc.map(item => parseFloat(item.savings_percent));
-
-
-    const budgetData = {
+    try {
+      const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+  
+      const monthsData = data.monthSavingsPerc;
+  
+      const sortedMonthsData = monthsData.sort((a, b) => {
+        return months.indexOf(a.month) - months.indexOf(b.month);
+      });
+  
+      const labels = sortedMonthsData.map(item => item.month);
+      const values = sortedMonthsData.map(item => parseFloat(item.savings_percent));
+  
+      const budgetData = {
         labels: labels,
         datasets: [
           {
@@ -56,48 +66,68 @@ const renderMonthGraph = async (data) => {
           },
         ],
       };
-
-    const lineOptions = {
-      title: {
-        display: true,
-        text: "Budget Savings by Month",
-        fontSize: 20,
-      },
-      plugins: {
-        legend: {
-            display: false,
-        }
-      },
-    };
-
-    const budgetChartVar = new Chart(budgetGraph, {
-      type: "line", 
-      data: budgetData,
-      options: lineOptions,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-const renderSavingsText = async () => {
-    // const savingsElement = document.getElementById("savings");
   
-    if (totalSavings >= 0) {
+      const lineOptions = {
+        title: {
+          display: true,
+          text: "Budget Savings by Month",
+          fontSize: 20,
+        },
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+      };
+  
+      const budgetChartVar = new Chart(budgetGraph, {
+        type: "line",
+        data: budgetData,
+        options: lineOptions,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+const renderSavingsText = async (data) => {
+    const savingsElement = document.getElementById("avg-savings");
+    const monthlySavings = parseFloat(data.averageMonthlySavings).toFixed(0);
+    // console.log(monthlySavings);
+    if (monthlySavings >= 0) {
       savingsElement.classList.add("profit");
       savingsElement.classList.remove("loss");
-      savingsElement.textContent = `Your monthly total savings are $${totalSavings}.`;
-    } else if (totalSavings < 0) {
+      savingsElement.textContent = `Your monthly average savings are $${monthlySavings}.`;
+    } else if (monthlySavings < 0) {
       savingsElement.classList.add("loss");
       savingsElement.classList.remove("profit");
-      savingsElement.textContent = `Your monthly total loss is -$${Math.abs(
+      savingsElement.textContent = `Your monthly average savings are -$${Math.abs(
+        monthlySavings
+      )}`;
+    }
+  };
+
+  const renderTotalSavings = async (data) => {
+    const totalSavingsElement = document.getElementById("total-savings");
+    const totalSavings = data.totalMonthlySavings;
+    if (totalSavings >= 0) {
+        totalSavingsElement.classList.add("profit");
+        totalSavingsElement.classList.remove("loss");
+      totalSavingsElement.textContent = `Your total savings are $${totalSavings}.`;
+    } else if (totalSavings < 0) {
+        totalSavingsElement.classList.add("loss");
+        totalSavingsElement.classList.remove("profit");
+      totalSavingsElement.textContent = `Your total loss is -$${Math.abs(
         totalSavings
-      )}. Click here to return to your expenses and edit them.`;
+      )}`;
     }
   };
 
 const init = async () => {
   const data = await getBudgetByMonth();
   await renderMonthGraph(data);
+  await renderSavingsText(data);
+  await renderTotalSavings(data);
 };
 
 document.addEventListener("DOMContentLoaded", async function () {

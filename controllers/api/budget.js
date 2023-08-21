@@ -144,13 +144,27 @@ router.post("/", useAuth, async (req, res) => {
         (budget) => budget.budget_name === req.body.newBudgetName
       );
 
-      if (budgetNameExists) {
-        res.status(401).json({ message: "Budget already exists!" });
-        return;
-      }
-    }
+      const budgetMonthExists = savedBudgets.some(
+        (budget) => budget.month === req.body.budgetMonth
+      );
+if (budgetMonthExists) {
+  const matchingBudgets = await Budget.findAll({
+    where: {
+      user_budget_id: req.session.user_id,
+      month: req.body.budgetMonth,
+    },
+  });
 
-    const newBudget = await Budget.create({
+  if (matchingBudgets.length) {
+    res.redirect(`/items/${matchingBudgets.id}`);
+    return; 
+  }
+  } else if (budgetNameExists) {
+    res.status(401).json({ message: "Budget already exists!" });
+    return;
+  }
+} else { 
+      const newBudget = await Budget.create({
       budget_name: req.body.newBudgetName,
       user_budget_id: req.session.user_id,
       month: req.body.budgetMonth
@@ -161,6 +175,7 @@ router.post("/", useAuth, async (req, res) => {
       console.error(err);
       return;
     }
+  }
 
     req.session.save(() => {
       req.session.budget_id = newBudget.id;
