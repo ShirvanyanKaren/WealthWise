@@ -17,15 +17,18 @@ const newBudgetHandler = async (event) => {
         body: JSON.stringify({ newBudgetName, budgetMonth }),
         headers: { "Content-Type": "application/json" },
       });
-
+      console.log(response);
       if (response.ok) {
+        console.log(response);
         document.location.replace("/items");
       } else {
         let errorMessage = "";
-
         switch (response.status) {
           case 401:
             errorMessage = "Budget already exists!";
+            break;
+          case 402:
+            errorMessage = "Please select a month.";
             break;
           case 500:
             errorMessage = "Server error.";
