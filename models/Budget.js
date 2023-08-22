@@ -25,6 +25,11 @@ Budget.init(
         key: "id",
       },
     },
+    month:  {
+      type: DataTypes.STRING,
+      // unique: true,
+      allowNull: false,
+     },
     total_expense: {
       type: DataTypes.DECIMAL(10, 2),
       validate: {
@@ -60,7 +65,7 @@ Budget.init(
       }
     },
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "budget",

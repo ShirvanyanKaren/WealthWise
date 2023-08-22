@@ -209,6 +209,21 @@ button:active {
   padding: 2rem;
   text-align: center;
 }
+.insights-container {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--off-white);
+  border-radius: var(--border-radius);
+  border: var(--border);
+  box-shadow: var(--box-shadow);
+  width: 70%;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
 
 .income,
 .expense {
@@ -309,6 +324,17 @@ button:active {
   margin-bottom: 22px;
   transition: 0.3s;
 }
+.input-field {
+  width: 100%;
+  font-size: 12px;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: var(--border);
+  border-radius: 5px;
+  margin-top: 4px;
+  transition: 0.3s;
+  text-align: center;
+}
 
 .create-budget-section {
   display: flex;
@@ -336,17 +362,21 @@ button:active {
 
 .profit:hover {
   color: gray;
+  cursor: pointer;
 }
 .loss:hover {
   color: gray;
+  cursor: pointer;
 }
 
 .profit {
   background-color: #ddffdd;
   border-left: 6px solid #04aa6d;
+  border-right: 6px solid #04aa6d;
   text-align: center;
   padding: 1rem;
   color: var(--black);
+  margin-top: 1rem;
   margin-bottom: 1rem;
   font: bolder;
   font-size: 1.5rem;
@@ -354,8 +384,10 @@ button:active {
 .loss {
   background-color: #ffdddd;
   border-left: 6px solid #f44336;
+  border-right: 6px solid #f44336;
   text-align: center;
   padding: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   font: bolder;
   color: var(--black);

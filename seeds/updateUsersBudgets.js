@@ -1,22 +1,26 @@
-// This script updates the total_income, total_expense, and total_savings
 const { Budget, Income, Expense } = require("../models");
 
-// This function updates the total_income, total_expense, and total_savings in the budgets table
 const updateBudgets = async () => {
   try {
     const budgets = await Budget.findAll();
 
     for (const budget of budgets) {
       const incomes = await Income.findAll({
-        where: { user_income_id: budget.user_budget_id },
+        where: { user_income_id: budget.user_budget_id, budget_id: budget.id },
       });
 
       const expenses = await Expense.findAll({
-        where: { user_expense_id: budget.user_budget_id },
+        where: { user_expense_id: budget.user_budget_id, budget_id: budget.id },
       });
 
-      const totalIncome = incomes.reduce((sum, income) => sum + parseFloat(income.amount), 0);
-      const totalExpense = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+      const totalIncome = incomes.reduce(
+        (sum, income) => sum + parseFloat(income.amount),
+        0
+      );
+      const totalExpense = expenses.reduce(
+        (sum, expense) => sum + parseFloat(expense.amount),
+        0
+      );
       const totalSavings = totalIncome - totalExpense;
 
       await Budget.update(
