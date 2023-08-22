@@ -171,8 +171,6 @@ router.get("/insights", useAuth, async (req, res) => {
     },
   });
   const budgets = userBudgetData.map((budget) => budget.get({ plain: true }));
-  req.session.budget_id = req.params.id;
-  req.session.save();
   res.render("insights", {
     logged_in: req.session.logged_in,
     budgets,
