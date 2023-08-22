@@ -27,7 +27,7 @@ Budget.init(
     },
     month:  {
       type: DataTypes.STRING,
-      unique: true,
+      // unique: true,
       allowNull: false,
      },
     total_expense: {
@@ -65,7 +65,7 @@ Budget.init(
       }
     },
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "budget",

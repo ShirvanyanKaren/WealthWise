@@ -9,6 +9,7 @@ const loginFormHandler = async (event) => {
   const password = document.querySelector("#password-login").value.trim();
   const errorElement = document.querySelector("#error-message");
 
+  
   try {
     if (user && password) {
       const response = await fetch("/api/user/login", {

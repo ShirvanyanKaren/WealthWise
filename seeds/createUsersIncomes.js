@@ -18,12 +18,12 @@ const incomeCategories = [
 // Function to create incomes for each user
 const createUsersIncomes = async () => {
   const users = await User.findAll({
-    include: [{ model: Budget, limit: 2 }],
+    include: [{ model: Budget }],
   });
 
   for (const user of users) {
     for (let i = 0; i < 10; i++) {
-      const index = i < 5 ? 0 : 1;
+      for (let j = 0; j < user.budgets.length; j++) {
       const randomCategoryIndex = Math.floor(
         Math.random() * incomeCategories.length
       );
@@ -31,13 +31,15 @@ const createUsersIncomes = async () => {
       await Income.create({
         income_name: faker.lorem.word(),
         user_income_id: user.id,
-        budget_id: user.budgets[index].id,
+        budget_id: user.budgets[j].id,
         amount: faker.commerce.price(),
         description: faker.lorem.sentence(),
         category: randomCategory,
         date: faker.date.past(),
       });
+
     }
+  }
   }
 };
 

@@ -131,74 +131,74 @@ try{
 router.post("/", useAuth, async (req, res) => {
   try {
     console.log(req.body.newBudgetName);
+    
+    // Find all budgets for the current user
     const foundBudgets = await Budget.findAll({
       where: { user_budget_id: req.session.user_id },
     });
 
-    if (foundBudgets.length !== 0) {
-      const savedBudgets = foundBudgets.map((budget) =>
-        budget.get({ plain: true })
-      );
+    const budgetNameExists = foundBudgets.some(
+      (budget) => budget.budget_name === req.body.newBudgetName
+    );
 
-      const budgetNameExists = savedBudgets.some(
-        (budget) => budget.budget_name === req.body.newBudgetName
-      );
+    const budgetMonthExists = foundBudgets.some(
+      (budget) => budget.month === req.body.budgetMonth
+    );
 
-      
-      const budgetMonthExists = savedBudgets.some(
-        (budget) => budget.month === req.body.budgetMonth
-      );
+    const matchingBudget = foundBudgets.find(
+      (budget) => budget.month === req.body.budgetMonth
+    );
 
-      console.log(budgetMonthExists);
+    console.log(budgetMonthExists);
 
-
- if (budgetNameExists) {
-    res.status(401).json({ message: "Budget already exists!" });
-    return;
-  } else if (budgetMonthExists) { 
-    const matchingBudget = await Budget.findOne({
-      where: {
+    if (budgetNameExists) {
+      res.status(401).json({ message: "Budget already exists!" });
+    } else if (budgetMonthExists) {
+      if (matchingBudget) {
+        try {
+          await Budget.update(
+            {
+              budget_name: req.body.newBudgetName,
+            },
+            {
+              where: {
+                id: matchingBudget.id,
+              },
+            }
+          );
+          res.redirect(`/items/${matchingBudget.id}`);
+        } catch (err) {
+          console.log(err);
+          res.status(500).json(err);
+        }
+      };
+    } else if (!req.body.budgetMonth) {
+      res.status(402).json({ message: "Please select a month." });
+    } else {
+      const newBudget = await Budget.create({
+        budget_name: req.body.newBudgetName,
         user_budget_id: req.session.user_id,
         month: req.body.budgetMonth,
-      },
-    });
-    const monthBudget =  await matchingBudget.get({ plain: true });
-    console.log(monthBudget.id);
-    if (monthBudget) {
-      res.redirect(`/items/${monthBudget.id}`);
-    }
-  } else if (!req.body.budgetMonth) {
-    res.status(402).json({ message: "Please select a month." });
-    return;
-  } else {
-      console.log()
-      const newBudget = await Budget.create({
-      budget_name: req.body.newBudgetName,
-      user_budget_id: req.session.user_id,
-      month: req.body.budgetMonth
-    });
+      });
 
-    if (!newBudget) {
-      res.status(401).json({ message: "Budget creation failed!" });
-      console.error(err);
-      return;
-    }
-    
-    
-    req.session.save(() => {
-      req.session.budget_id = newBudget.id;
-      req.session.budget_name = newBudget.budget_name;
-      req.session.logged_in = true;
-      res.status(200).json(newBudget);
-    });
-    }
-  }
+      if (!newBudget) {
+        res.status(401).json({ message: "Budget creation failed!" });
+        console.error(err);
+        return;
+      }
 
+      req.session.save(() => {
+        req.session.budget_id = newBudget.id;
+        req.session.budget_name = newBudget.budget_name;
+        req.session.logged_in = true;
+        res.status(200).json(newBudget);
+      });
+    }
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
+
 
 // PUT update a budget
 router.put("/:id", useAuth, async (req, res) => {

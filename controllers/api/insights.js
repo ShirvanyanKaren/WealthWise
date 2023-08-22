@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Expense, Income, Budget } = require("../../models");
+const { Budget } = require("../../models");
 
 
 router.get('/', async (req, res) => {
