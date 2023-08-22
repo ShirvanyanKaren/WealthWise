@@ -1,6 +1,7 @@
 // Query Selectors
 const signUpForm = document.querySelector(".signup-form");
 
+
 // Sign Up Function
 const signup = async (event) => {
   event.preventDefault();
@@ -26,12 +27,12 @@ const signup = async (event) => {
       if (responseData && responseData.message) {
         errorElement.textContent = responseData.message;
       } else {
-        errorElement.textContent("An error occurred during sign up.");
+        errorElement.textContent = responseData.message;
       }
     }
   } catch (error) {
     console.error("An error occurred:", error);
-    errorElement.textContent("An error occurred during sign up.");
+    errorElement.textContent = "An error occurred during sign up." ;
   }
 };
 
