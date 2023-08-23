@@ -14,10 +14,11 @@ router.get("/", useAuth, async (req, res) => {
 
     console.log(monthlyBudgetData);
 
-    const totalMonthlySavings = monthlyBudgetData.reduce(
-      (total, item) => total + item.total_savings,
-      0
+    const totalMonthlySavings = monthlyBudgetData.forEach(
+      (item) => (item.total_savings += item.total_savings)
     );
+
+    console.log(typeof monthlyBudgetData[0].total_savings)
 
     console.log(totalMonthlySavings);
 
